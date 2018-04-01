@@ -24,16 +24,9 @@ namespace NaiveUwp
     /// </summary>
     public sealed partial class MainPage : Page
     {
-        MediaElement mediaElement = new MediaElement();
-        MediaPlayerElement mediaPlayerElement = new MediaPlayerElement();
         public MainPage()
         {
             this.InitializeComponent();
-        }
-
-        private void Volumn_ValueChanged(object sender, RangeBaseValueChangedEventArgs e)
-        {
-
         }
 
         private void PlayButton_Click(object sender, RoutedEventArgs e)
@@ -64,6 +57,16 @@ namespace NaiveUwp
                 mediaElement.SetSource(stream, file.ContentType);
             }
             mediaElement.Play();
+        }
+
+        public void Volumn_ValueChanged(object sender, RoutedEventArgs e)
+        {
+            
+        }
+        private void VoiceButton_Click(object sender, RoutedEventArgs e)
+        {
+            mediaElement.Volume = Volumn.Value;
+            //mediaElement.Volume = {Binding value, ElementName=Volumn};
         }
     }
 }

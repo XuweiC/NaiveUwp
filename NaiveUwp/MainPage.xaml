@@ -13,6 +13,7 @@
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
             <RowDefinition Height="100" />
         </Grid.RowDefinitions>
         <RelativePanel Grid.Row="2"
@@ -25,7 +26,8 @@
                     Width="100"
                     Height="100"
                     HorizontalAlignment="Center"
-                    RelativePanel.RightOf="PlayButton">
+                    RelativePanel.RightOf="PlayButton"
+                    Click="VoiceButton_Click">
             </Button>
             <Button Name="PlayButton"
                     Background="AliceBlue"
@@ -56,8 +58,12 @@
                     RelativePanel.AlignVerticalCenterWith="VoiceButton">
             </Slider>
         </RelativePanel>
-        <MediaPlayerElement Name="mediaPlayElement"
-                            AutoPlay="True">
-        </MediaPlayerElement>
+        <MediaElement Grid.Column="0"
+                      Grid.Row="0"
+                      Grid.ColumnSpan="2"
+                      Grid.RowSpan="2"
+                      Name="mediaElement"
+                      >
+        </MediaElement>
     </Grid>
 </Page>
