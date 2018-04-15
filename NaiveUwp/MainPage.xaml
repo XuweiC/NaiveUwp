@@ -35,7 +35,7 @@
                     FontSize="50"
                     Width="auto"
                     Height="100"
-                    RelativePanel.AlignHorizontalCenterWithPanel="True"
+                     RelativePanel.AlignHorizontalCenterWithPanel="True"
                     Click="PlayButton_Click">
             </Button>
             <Button Name="OpenFileButton"
@@ -47,6 +47,24 @@
                     Height="100"
                     RelativePanel.LeftOf="PlayButton"
                     Click="OpenFileButton_Click">
+            </Button>
+            <Button Name="Play2"
+                    Content="Online"
+                    Background="AliceBlue"
+                    FontSize="48"
+                    Width="200"
+                    Height="100"
+                    RelativePanel.LeftOf="OpenFileButton"
+                    Click="Play2_Click">
+            </Button>
+            <Button Name="Download"
+                    Content="Download"
+                    Background="AliceBlue"
+                    FontSize="48"
+                    Width="240"
+                    Height="100"
+                    RelativePanel.LeftOf="Play2"
+                    Click="Download_Click">
             </Button>
             <Slider Minimum="0"
                     Maximum="1"

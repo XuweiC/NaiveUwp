@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
 using Windows.Storage;
 using Windows.Storage.Pickers;
+using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
@@ -50,12 +52,38 @@ namespace NaiveUwp
 
         public void Volumn_ValueChanged(object sender, RoutedEventArgs e)
         {
-            
+            mediaElement.Volume = Volumn.Value;
         }
         private void VoiceButton_Click(object sender, RoutedEventArgs e)
         {
-            mediaElement.Volume = Volumn.Value;
+            mediaElement.Volume = 0;
             //mediaElement.Volume = {Binding value, ElementName=Volumn};
+        }
+
+        private void Play2_Click(object sender, RoutedEventArgs e)
+        {
+            mediaElement.Source = new Uri("http://www.neu.edu.cn/indexsource/neusong.mp3", UriKind.Absolute);
+        }
+
+        private async void Download_Click(object sender, RoutedEventArgs e)
+        {
+            Windows.Web.Http.HttpClient httpClient = new Windows.Web.Http.HttpClient();
+            var buffer = await httpClient.GetBufferAsync(new Uri("http://www.neu.edu.cn/indexsource/neusong.mp3"));
+            if (buffer == null) return;
+            //创建本地资源
+            FileSavePicker fileSavePicker = new FileSavePicker();
+            fileSavePicker.SuggestedStartLocation = Windows.Storage.Pickers.PickerLocationId.MusicLibrary;
+            fileSavePicker.FileTypeChoices.Add("校歌", new List<string>() { ".mp3" });
+            var storageFile = await fileSavePicker.PickSaveFileAsync();
+            if (storageFile == null) return;
+            //写入本地资源
+            CachedFileManager.DeferUpdates(storageFile);
+            await FileIO.WriteBufferAsync(storageFile, buffer);
+            await CachedFileManager.CompleteUpdatesAsync(storageFile);
+            MessageDialog msg = new MessageDialog("Welcome!");//.....
+            //写入MediaElement
+            var stream = await storageFile.OpenAsync(FileAccessMode.Read);
+            mediaElement.SetSource(stream, "");
         }
     }
 }
